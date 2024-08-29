@@ -41,13 +41,13 @@ while True:
 if language_choice == 1:
     window_input = f"\n{putih} [?] | Enter Window : {reset}"
     window_not_found = f"{putih} [>] | Your Window - {{}} {kuning}not found!{reset}"
-    window_found = f"{hijau} [>] | Window found - {{}}\n {hijau}Now bot working... {putih}Press {kuning}'S' {putih}to start or pause. Press {kuning}'Q' {putih}to stop bot.{reset}"
+    window_found = f"{hijau} [>] | Window found - {{}}\n {hijau}Now bot working...\n {putih}Press {kuning}'S' {putih}to start or pause.\n Press {kuning}'Q' {putih}to stop bot.\n Press {kuning}'Space' {putih}to 'play again' blum game.{reset}"
     pause_message = f"{biru} Bot paused...{reset}"
     continue_message = f"{biru} Bot running...{reset}"
 elif language_choice == 2:
     window_input = f"\n{putih} [?] | Masukin Window nya : {reset}"
     window_not_found = f"{putih} [>] | Window - {{}} {kuning}tidak tersedia!{reset}"
-    window_found = f"{hijau} [>] | Window ditemukan - {{}}\n {hijau}Sekarang bot berjalan... {putih}Tekan {kuning}'S' {putih}untuk mulai atau jeda. Tekan {kuning}'Q' {putih}untuk stop bot.{reset}"
+    window_found = f"{hijau} [>] | Window ditemukan - {{}}\n {hijau}Sekarang bot berjalan...\n {putih}Tekan {kuning}'S' {putih}untuk mulai atau jeda.\n Tekan {kuning}'Q' {putih}untuk stop bot.\n Tekan {kuning}'Spasi' {putih}untuk 'main ulang' blum game.{reset}"
     pause_message = f"{biru} Bot terjeda...{reset}"
     continue_message = f"{biru} Bot berjalan...{reset}"
 
@@ -83,8 +83,14 @@ else:
             time.sleep(0.2)
             
         if keyboard.is_pressed('Q'):
-            print("Program closing...")
+            print(f" {merah}Program closing...{reset}")
             exit() 
+            
+        if keyboard.is_pressed('space'):
+            click(1603, 900)
+            print(f" {hijau}Play Again...{reset}")
+            time.sleep(0.2)
+            continue 
 
         if paused:
             continue
@@ -113,7 +119,7 @@ else:
                 if (b in range(0, 125)) and (r in range(102, 220)) and (g in range(200, 255)):
                     screen_x = window_rect[0] + x
                     screen_y = window_rect[1] + y
-                    click(screen_x + 4, screen_y)
+                    click(screen_x + 2, screen_y)
                     time.sleep(0.001)
                     pixel_found = True
                     break
