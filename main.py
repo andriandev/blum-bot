@@ -21,12 +21,12 @@ putihhijau = '\033[97m\033[42m'
 merahhijau = '\033[1;91m\033[42m'
 
 print()
-print(f" {putihhijau}Author: AndrianDev{reset}")
-print(f" {putihhijau}Blum Bot Auto Click{reset}")
+print(f" {putihhijau}*** Author: AndrianDev ***{reset}")
+print(f" {putihhijau}*** Blum Bot Auto Click ***{reset}")
 print()
 print(colored("  ...:::: CHOOSE LANGUAGE ::::...", 'light_cyan'))
-print(colored("  [ ", 'white') + colored("1 ", 'light_green') + colored("] ", 'white') + colored("English", 'light_yellow'))
-print(colored("  [ ", 'white') + colored("2 ", 'light_green') + colored("] ", 'white') + colored("Bahasa Indonesia", 'light_yellow'))
+print(colored("  [", 'white') + colored("1", 'light_green') + colored("] ", 'white') + colored("English", 'light_yellow'))
+print(colored("  [", 'white') + colored("2", 'light_green') + colored("] ", 'white') + colored("Bahasa Indonesia", 'light_yellow'))
 
 while True:
     try:
@@ -34,22 +34,24 @@ while True:
         if language_choice in [1, 2]:
             break
         else:
-            print(f"{merah} Yo bro wrong choose. You can input {kuning}1 {merah}or {kuning}2{merah}.{reset}")
+            print(f"  {merah}Yo bro wrong choose. You can input {kuning}1 {merah}or {kuning}2{merah}.{reset}")
     except ValueError:
-        print(f" {merah}What??? your input not valid. Please enter number {kuning}1 {merah}or {kuning}2 {merah}bro.{reset}")
+        print(f"  {merah}What??? your input not valid. Please enter number {kuning}1 {merah}or {kuning}2 {merah}bro.{reset}")
 
 if language_choice == 1:
     window_input = f"\n{putih} [?] | Enter Window : {reset}"
     window_not_found = f"{putih} [>] | Your Window - {{}} {kuning}not found!{reset}"
-    window_found = f"{hijau} [>] | Window found - {{}}\n {hijau}Now bot working...\n {putih}Press {kuning}'S' {putih}to start or pause.\n Press {kuning}'Q' {putih}to stop bot.\n Press {kuning}'Space' {putih}to 'play again' blum game.{reset}"
-    pause_message = f"{biru} Bot paused...{reset}"
-    continue_message = f"{biru} Bot running...{reset}"
+    window_found = f"{hijau} [>] | Window found - {{}}\n {hijau}Now bot working...\n {putih}Press {kuning}'S' {putih}to start or pause.\n Press {kuning}'Q' {putih}to stop bot.\n Press {kuning}'Space' {putih}to play again blum game.{reset}"
+    pause_message = f" {biru}Bot paused...{reset}"
+    continue_message = f" {biru}Bot running...{reset}"
+    close_message = f" {merah}Program closing...{reset}"
 elif language_choice == 2:
     window_input = f"\n{putih} [?] | Masukin Window nya : {reset}"
     window_not_found = f"{putih} [>] | Window - {{}} {kuning}tidak tersedia!{reset}"
-    window_found = f"{hijau} [>] | Window ditemukan - {{}}\n {hijau}Sekarang bot berjalan...\n {putih}Tekan {kuning}'S' {putih}untuk mulai atau jeda.\n Tekan {kuning}'Q' {putih}untuk stop bot.\n Tekan {kuning}'Spasi' {putih}untuk 'main ulang' blum game.{reset}"
-    pause_message = f"{biru} Bot terjeda...{reset}"
-    continue_message = f"{biru} Bot berjalan...{reset}"
+    window_found = f"{hijau} [>] | Window ditemukan - {{}}\n {hijau}Sekarang bot aktif...\n {putih}Tekan {kuning}'S' {putih}untuk mulai atau jeda.\n Tekan {kuning}'Q' {putih}untuk stop bot.\n Tekan {kuning}'Spasi' {putih}untuk main ulang blum game.{reset}"
+    pause_message = f" {biru}Bot terjeda...{reset}"
+    continue_message = f" {biru}Bot berjalan...{reset}"
+    close_message = f" {merah}Menutup program...{reset}"
 
 def click(x, y):
     mouse.position = (x, y + random.randint(1, 3))
@@ -71,7 +73,8 @@ if not check:
 else:
     print(window_found.format(window_name))
     telegram_window = check[0]
-    paused = False
+    paused = True
+    play_again = False
 
     while True:
         if keyboard.is_pressed('S'):
@@ -83,14 +86,18 @@ else:
             time.sleep(0.2)
             
         if keyboard.is_pressed('Q'):
-            print(f" {merah}Program closing...{reset}")
+            print(close_message)
             exit() 
             
         if keyboard.is_pressed('space'):
-            click(1603, 900)
+            play_again = True
             print(f" {hijau}Play Again...{reset}")
+            click(1603, 900)
             time.sleep(0.2)
-            continue 
+        
+        if play_again:
+            play_again = False
+            continue
 
         if paused:
             continue
@@ -116,7 +123,7 @@ else:
         for x in range(0, width, 20):
             for y in range(0, height, 20):
                 r, g, b = scrn.getpixel((x, y))
-                if (b in range(0, 125)) and (r in range(102, 220)) and (g in range(200, 255)):
+                if (b in range(20, 125)) and (r in range(102, 220)) and (g in range(200, 255)):
                     screen_x = window_rect[0] + x
                     screen_y = window_rect[1] + y
                     click(screen_x + 2, screen_y)
