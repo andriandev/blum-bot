@@ -1,0 +1,9 @@
+keyboard
+pynput
+pyautogui
+pygetwindow
+termcolor
+colorama
+
+# If any error in pyautogui instal pillow module
+pillow
