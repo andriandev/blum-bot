@@ -57,14 +57,19 @@ def click(x, y):
     mouse.position = (x, y + random.randint(1, 3))
     mouse.press(Button.left)
     mouse.release(Button.left)
+    
+def get_pixel_color_under_cursor():
+    # Mengambil warna pixel di bawah posisi kursor
+    x, y = pyautogui.position()  # Mendapatkan posisi kursor
+    screenshot = pyautogui.screenshot()  # Mengambil screenshot penuh layar
+    pixel_color = screenshot.getpixel((x, y))  # Mendapatkan warna pixel di posisi kursor
+    return x, y, pixel_color
 
 window_name = input(window_input)
 
-if window_name == '1':
-    window_name = "TelegramDesktop"
+window_check = gw.getWindowsWithTitle(window_name)
 
-check = gw.getWindowsWithTitle(window_name)
-if not check:
+if not window_check:
     print(window_not_found.format(window_name))
     if language_choice == 1:
         print(f"\n   {putihmerah}EN:{reset}\n   {putihmerah}Make sure you use the TelegramDesktop application (not Telegram Web).{reset}\n   {putihmerah}And have opened the Blum bot on your TelegramDesktop.{reset}\n   {putihmerah}Until the Blum window is available{reset}")
@@ -72,7 +77,7 @@ if not check:
         print(f"\n   {putihmerah}ID:{reset}\n   {putihmerah}Pastikan kamu menggunakan aplikasi TelegramDesktop (bukan Telegram Web).{reset}\n   {putihmerah}Dan telah membuka Blum bot di TelegramDesktop kamu.{reset}\n   {putihmerah}Hingga tersedia window Blum nya{reset}")
 else:
     print(window_found.format(window_name))
-    telegram_window = check[0]
+    telegram_window = window_check[0]
     paused = True
     play_again = False
 
@@ -94,6 +99,11 @@ else:
             print(f" {hijau}Play Again...{reset}")
             click(1603, 900)
             time.sleep(0.2)
+            
+        if keyboard.is_pressed('1'):
+            x, y, pixel_color = get_pixel_color_under_cursor()  # Memanggil fungsi untuk mengambil warna pixel dan posisi
+            print(f" {kuning}Color : {pixel_color}{reset} \n {kuning}Position : ({x}, {y}){reset}")
+            time.sleep(0.2)  # Menunggu sebentar agar tidak terus-menerus mendeteksi saat tombol ditekan
         
         if play_again:
             play_again = False
@@ -120,10 +130,10 @@ else:
         if pixel_found:
             break
 
-        for x in range(0, width, 20):
-            for y in range(0, height, 20):
+        for x in range(0, width, 17):
+            for y in range(0, height, 17):
                 r, g, b = scrn.getpixel((x, y))
-                if (b in range(20, 125)) and (r in range(102, 220)) and (g in range(200, 255)):
+                if (b in range(0, 80)) and (r in range(150, 233)) and (g in range(215, 255)):
                     screen_x = window_rect[0] + x
                     screen_y = window_rect[1] + y
                     click(screen_x + 2, screen_y)
