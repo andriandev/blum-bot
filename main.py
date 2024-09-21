@@ -130,8 +130,8 @@ else:
         if pixel_found:
             break
 
-        for x in range(0, width, 17):
-            for y in range(0, height, 17):
+        for x in range(0, width, 15):
+            for y in range(0, height, 15):
                 r, g, b = scrn.getpixel((x, y))
                 if (b in range(0, 80)) and (r in range(150, 233)) and (g in range(215, 255)):
                     screen_x = window_rect[0] + x
